@@ -1,0 +1,498 @@
+/* ==========================================
+   CyberShield Responsive Styles
+========================================== */
+
+/* Large Laptop */
+
+@media (max-width: 1200px){
+
+    .hero{
+
+        padding:120px 6%;
+
+        gap:40px;
+
+    }
+
+    .hero h1{
+
+        font-size:52px;
+
+    }
+
+}
+
+/* Tablet */
+
+@media (max-width: 992px){
+
+    .navbar{
+
+        padding:18px 5%;
+
+    }
+
+    .nav-links{
+
+        gap:18px;
+
+    }
+
+    .hero{
+
+        flex-direction:column-reverse;
+
+        text-align:center;
+
+        padding-top:140px;
+
+    }
+
+    .hero-buttons{
+
+        justify-content:center;
+
+        flex-wrap:wrap;
+
+    }
+
+    .hero h1{
+
+        font-size:46px;
+
+    }
+
+    .hero-text{
+
+        max-width:700px;
+
+        margin:auto;
+        margin-bottom:35px;
+
+    }
+
+    .shield-card{
+
+        width:320px;
+
+        height:320px;
+
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width:768px){
+
+    .navbar{
+
+        flex-direction:column;
+
+        gap:18px;
+
+    }
+
+    .nav-links{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:15px;
+
+    }
+
+    .nav-buttons{
+
+        justify-content:center;
+
+        flex-wrap:wrap;
+
+    }
+
+    .hero{
+
+        padding:160px 7% 70px;
+
+    }
+
+    .hero h1{
+
+        font-size:38px;
+
+    }
+
+    .hero-text{
+
+        font-size:16px;
+
+    }
+
+    .shield-card{
+
+        width:280px;
+
+        height:280px;
+
+    }
+
+    .shield-card i{
+
+        font-size:70px;
+
+    }
+
+}
+
+/* Small Mobile */
+
+@media (max-width:480px){
+
+    .logo{
+
+        font-size:22px;
+
+    }
+
+    .logo i{
+
+        font-size:26px;
+
+    }
+
+    .hero{
+
+        padding:170px 6% 60px;
+
+    }
+
+    .hero h1{
+
+        font-size:30px;
+
+        line-height:1.4;
+
+    }
+
+    .tag{
+
+        font-size:14px;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .primary-btn,
+
+    .secondary-btn{
+
+        width:100%;
+
+        text-align:center;
+
+    }
+
+    .shield-card{
+
+        width:240px;
+
+        height:240px;
+
+    }
+
+    .shield-card h2{
+
+        font-size:22px;
+
+    }
+
+    .shield-card p{
+
+        font-size:14px;
+
+    }
+
+}
+
+/* ==========================================
+   CYBERSHIELD - HISTORY RESPONSIVE
+   ADD TO THE BOTTOM OF responsive.css
+========================================== */
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 1000px) {
+
+    .history-page {
+
+        padding:
+            145px 5% 70px;
+
+    }
+
+
+    .history-controls {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+
+    .history-search {
+
+        grid-column:
+            1 / -1;
+
+    }
+
+
+    .history-refresh {
+
+        width:
+            100%;
+
+    }
+
+
+    .history-summary {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+
+    .history-container {
+
+        padding:
+            24px;
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .history-page {
+
+        padding:
+            155px 5% 60px;
+
+    }
+
+
+    .history-header {
+
+        margin-bottom:
+            35px;
+
+    }
+
+
+    .history-header h1 {
+
+        font-size:
+            36px;
+
+    }
+
+
+    .history-header p {
+
+        font-size:
+            14px;
+
+    }
+
+
+    .history-controls {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            12px;
+
+    }
+
+
+    .history-search {
+
+        grid-column:
+            auto;
+
+    }
+
+
+    .history-summary {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .history-summary-card {
+
+        padding:
+            19px;
+
+    }
+
+
+    .history-container {
+
+        padding:
+            20px 15px;
+
+        border-radius:
+            20px;
+
+    }
+
+
+    .history-container-header {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        margin-bottom:
+            18px;
+
+    }
+
+
+    .history-count {
+
+        align-self:
+            flex-start;
+
+    }
+
+
+    .history-table {
+
+        min-width:
+            800px;
+
+    }
+
+
+    .history-state {
+
+        min-height:
+            260px;
+
+    }
+
+}
+
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media (max-width: 480px) {
+
+    .history-page {
+
+        padding:
+            160px 4% 50px;
+
+    }
+
+
+    .history-tag {
+
+        font-size:
+            10px;
+
+        padding:
+            8px 13px;
+
+    }
+
+
+    .history-header h1 {
+
+        font-size:
+            30px;
+
+    }
+
+
+    .history-header p {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .history-summary-card strong {
+
+        font-size:
+            22px;
+
+    }
+
+
+    .history-container {
+
+        padding:
+            18px 12px;
+
+    }
+
+
+    .history-container-header h2 {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .history-refresh {
+
+        min-height:
+            46px;
+
+    }
+
+
+    .history-filter {
+
+        min-height:
+            46px;
+
+    }
+
+
+    .history-search {
+
+        min-height:
+            46px;
+
+    }
+
+}

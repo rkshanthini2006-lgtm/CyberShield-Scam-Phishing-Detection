@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CyberShield | Dashboard</title>
+
+    <!-- Existing CyberShield Styles -->
+    <link
+        rel="stylesheet"
+        href="/assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/assets/css/animations.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/assets/css/responsive.css"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Dashboard Specific Styling -->
+    <style>
+
+        /* ==========================================
+           CYBERSHIELD DASHBOARD
+        ========================================== */
+
+        .dashboard-page {
+
+            min-height: 100vh;
+
+            padding:
+                120px 8% 70px;
+
+            background:
+                radial-gradient(
+                    circle at 85% 15%,
+                    rgba(0, 194, 255, 0.08),
+                    transparent 35%
+                ),
+
+                radial-gradient(
+                    circle at 10% 80%,
+                    rgba(0, 119, 255, 0.06),
+                    transparent 35%
+                );
+
+        }
+
+
+        /* ==========================================
+           DASHBOARD HEADER
+        ========================================== */
+
+        .dashboard-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 30px;
+
+            margin-bottom: 45px;
+
+        }
+
+
+        .dashboard-heading h1 {
+
+            font-size: 38px;
+
+            line-height: 1.3;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .dashboard-heading h1 span {
+
+            color: var(--primary);
+
+            text-shadow:
+                0 0 15px
+                rgba(0, 194, 255, 0.30);
+
+        }
+
+
+        .dashboard-heading p {
+
+            color: var(--text);
+
+            font-size: 15px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .dashboard-status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding:
+                10px 18px;
+
+            border-radius: 50px;
+
+            background:
+                rgba(0, 230, 118, 0.08);
+
+            border:
+                1px solid
+                rgba(0, 230, 118, 0.20);
+
+            color:
+                var(--success);
+
+            font-size: 13px;
+
+            white-space: nowrap;
+
+        }
+
+
+        .dashboard-status i {
+
+            font-size: 9px;
+
+            animation:
+                dashboardPulse
+                1.8s
+                infinite;
+
+        }
+
+
+        @keyframes dashboardPulse {
+
+            0% {
+
+                opacity: 0.35;
+
+            }
+
+            50% {
+
+                opacity: 1;
+
+            }
+
+            100% {
+
+                opacity: 0.35;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           STAT CARDS
+        ========================================== */
+
+        .dashboard-stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
+            gap: 22px;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .dashboard-stat-card {
+
+            position: relative;
+
+            padding: 28px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.065),
+                    rgba(255, 255, 255, 0.025)
+                );
+
+            border:
+                1px solid
+                rgba(0, 194, 255, 0.10);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+
+        }
+
+
+        .dashboard-stat-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    var(--primary),
+                    transparent
+                );
+
+            opacity: 0.65;
+
+        }
+
+
+        .dashboard-stat-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            border-color:
+                rgba(0, 194, 255, 0.25);
+
+            box-shadow:
+                0 18px 45px
+                rgba(0, 194, 255, 0.10);
+
+        }
+
+
+        .dashboard-stat-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .dashboard-stat-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background:
+                rgba(0, 194, 255, 0.10);
+
+            color:
+                var(--primary);
+
+            font-size: 19px;
+
+            box-shadow:
+                0 0 20px
+                rgba(0, 194, 255, 0.08);
+
+        }
+
+
+        .dashboard-stat-label {
+
+            color:
+                var(--text);
+
+            font-size: 13px;
+
+        }
+
+
+        .dashboard-stat-value {
+
+            font-size: 30px;
+
+            font-weight: 700;
+
+            color:
+                var(--white);
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .dashboard-stat-description {
+
+            color:
+                rgba(199, 213, 224, 0.65);
+
+            font-size: 12px;
+
+        }
+
+
+        /* ==========================================
+           MAIN DASHBOARD GRID
+        ========================================== */
+
+        .dashboard-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.35fr
+                0.65fr;
+
+            gap: 25px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .dashboard-card {
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255, 255, 255, 0.06),
+                    rgba(255, 255, 255, 0.025)
+                );
+
+            border:
+                1px solid
+                rgba(0, 194, 255, 0.10);
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+
+        }
+
+
+        .dashboard-card:hover {
+
+            border-color:
+                rgba(0, 194, 255, 0.18);
+
+            box-shadow:
+                0 20px 50px
+                rgba(0, 0, 0, 0.20);
+
+        }
+
+
+        .dashboard-card-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .dashboard-card-header h2 {
+
+            font-size: 20px;
+
+        }
+
+
+        .dashboard-card-header p {
+
+            color:
+                var(--text);
+
+            font-size: 12px;
+
+        }
+
+
+        /* ==========================================
+           QUICK SCAN
+        ========================================== */
+
+        .quick-scan {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+
+        }
+
+
+        .quick-scan-input {
+
+            width: 100%;
+
+            padding:
+                16px 18px;
+
+            border:
+                1px solid
+                rgba(0, 194, 255, 0.13);
+
+            border-radius: 14px;
+
+            outline: none;
+
+            background:
+                #10192B;
+
+            color:
+                white;
+
+            font-family:
+                'Poppins',
+                sans-serif;
+
+            font-size: 14px;
+
+            transition:
+                0.3s ease;
+
+        }
+
+
+        .quick-scan-input:focus {
+
+            border-color:
+                var(--primary);
+
+            box-shadow:
+                0 0 18px
+                rgba(0, 194, 255, 0.15);
+
+        }
+
+
+        .quick-scan-actions {
+
+            display: flex;
+
+            gap: 12px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .quick-scan-btn {
+
+            padding:
+                12px 22px;
+
+            border-radius: 50px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color:
+                white;
+
+            font-family:
+                'Poppins',
+                sans-serif;
+
+            font-weight: 600;
+
+            transition:
+                0.3s ease;
+
+        }
+
+
+        .quick-scan-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(0, 194, 255, 0.25);
+
+        }
+
+
+        .view-scanner-btn {
+
+            padding:
+                12px 22px;
+
+            border:
+                1px solid
+                var(--primary);
+
+            border-radius: 50px;
+
+            color:
+                var(--primary);
+
+            transition:
+                0.3s ease;
+
+        }
+
+
+        .view-scanner-btn:hover {
+
+            background:
+                var(--primary);
+
+            color:
+                var(--dark);
+
+        }
+
+
+        /* ==========================================
+           SECURITY STATUS
+        ========================================== */
+
+        .security-status {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap: 18px;
+
+        }
+
+
+        .security-item {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            gap: 15px;
+
+            padding:
+                15px;
+
+            border-radius:
+                14px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.035
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.06
+                );
+
+        }
+
+
+        .security-item-left {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap: 12px;
+
+        }
+
+
+        .security-item-icon {
+
+            width:
+                38px;
+
+            height:
+                38px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                11px;
+
+            background:
+                rgba(
+                    0,
+                    194,
+                    255,
+                    0.08
+                );
+
+            color:
+                var(--primary);
+
+        }
+
+
+        .security-item h4 {
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                3px;
+
+        }
+
+
+        .security-item p {
+
+            font-size:
+                11px;
+
+            color:
+                rgba(
+                    199,
+                    213,
+                    224,
+                    0.60
+                );
+
+        }
+
+
+        .status-badge {
+
+            padding:
+                5px 10px;
+
+            border-radius:
+                50px;
+
+            font-size:
+                10px;
+
+            font-weight:
+                600;
+
+        }
+
+
+        .status-badge.active {
+
+            color:
+                var(--success);
+
+            background:
+                rgba(
+                    0,
+                    230,
+                    118,
+                    0.08
+                );
+
+            border:
+                1px solid
+                rgba(
+                    0,
+                    230,
+                    118,
+                    0.15
+                );
+
+        }
+
+
+        /* ==========================================
+           RECENT ACTIVITY
+        ========================================== */
+
+        .activity-list {
+
+            display:
+                flex;
+
+            flex-direction:
+                column;
+
+            gap:
+                12px;
+
+        }
+
+
+        .activity-item {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                15px;
+
+            padding:
+                16px;
+
+            border-radius:
+                14px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.025
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.05
+                );
+
+        }
+
+
+        .activity-icon {
+
+            width:
+                42px;
+
+            height:
+                42px;
+
+            min-width:
+                42px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                12px;
+
+            color:
+                var(--primary);
+
+            background:
+                rgba(
+                    0,
+                    194,
+                    255,
+                    0.08
+                );
+
+        }
+
+
+        .activity-content {
+
+            flex:
+                1;
+
+        }
+
+
+        .activity-content h4 {
+
+            font-size:
+                13px;
+
+            margin-bottom:
+                4px;
+
+        }
+
+
+        .activity-content p {
+
+            font-size:
+                11px;
+
+            color:
+                rgba(
+                    199,
+                    213,
+                    224,
+                    0.60
+                );
+
+        }
+
+
+        .activity-time {
+
+            font-size:
+                10px;
+
+            color:
+                rgba(
+                    199,
+                    213,
+                    224,
+                    0.45
+                );
+
+            white-space:
+                nowrap;
+
+        }
+
+
+        /* ==========================================
+           DASHBOARD FOOTER
+        ========================================== */
+
+        .dashboard-footer {
+
+            text-align:
+                center;
+
+            margin-top:
+                45px;
+
+            color:
+                rgba(
+                    199,
+                    213,
+                    224,
+                    0.45
+                );
+
+            font-size:
+                12px;
+
+        }
+
+
+        /* ==========================================
+           RESPONSIVE
+        ========================================== */
+
+        @media (max-width: 1000px) {
+
+            .dashboard-stats {
+
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
+
+            }
+
+            .dashboard-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .dashboard-page {
+
+                padding:
+                    120px 6% 60px;
+
+            }
+
+            .dashboard-header {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+            }
+
+            .dashboard-heading h1 {
+
+                font-size:
+                    30px;
+
+            }
+
+            .dashboard-stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+            .dashboard-card {
+
+                padding:
+                    22px;
+
+            }
+
+            .quick-scan-actions {
+
+                flex-direction:
+                    column;
+
+            }
+
+            .quick-scan-btn,
+            .view-scanner-btn {
+
+                width:
+                    100%;
+
+                text-align:
+                    center;
+
+            }
+
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         NAVIGATION
+    ========================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            CyberShield
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a
+                href="/dashboard.html"
+                class="active"
+            >
+                Dashboard
+            </a>
+
+            <a href="/report.html">
+                Report Scam
+            </a>
+
+        </div>
+
+
+        <div class="nav-buttons">
+
+            <a
+                href="/login.html"
+                class="login-btn"
+            >
+                Logout
+            </a>
+
+            <a
+                href="/"
+                class="scan-btn"
+            >
+                Scan Now
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ==========================================
+         DASHBOARD
+    ========================================== -->
+
+    <main class="dashboard-page">
+
+
+        <!-- DASHBOARD HEADER -->
+
+        <section class="dashboard-header">
+
+            <div class="dashboard-heading">
+
+                <div class="tag">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    Security Dashboard
+
+                </div>
+
+                <h1>
+
+                    Welcome to
+                    <span>CyberShield</span>
+
+                </h1>
+
+                <p>
+
+                    Monitor your security activity,
+                    scan suspicious content, and
+                    stay protected from online threats.
+
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-status">
+
+                <i class="fa-solid fa-circle"></i>
+
+                Protection Active
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             STATISTICS
+        ========================================== -->
+
+        <section class="dashboard-stats">
+
+
+            <div class="dashboard-stat-card">
+
+                <div class="dashboard-stat-top">
+
+                    <div>
+
+                        <div class="dashboard-stat-label">
+                            Total Scans
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-stat-icon">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="dashboard-stat-value"
+                    id="totalScans"
+                >
+                    0
+                </div>
+
+                <div class="dashboard-stat-description">
+
+                    Security scans performed
+
+                </div>
+
+            </div>
+
+
+
+            <div class="dashboard-stat-card">
+
+                <div class="dashboard-stat-top">
+
+                    <div>
+
+                        <div class="dashboard-stat-label">
+                            Threats Detected
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-stat-icon">
+
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="dashboard-stat-value"
+                    id="threatsDetected"
+                >
+                    0
+                </div>
+
+                <div class="dashboard-stat-description">
+
+                    Suspicious or dangerous results
+
+                </div>
+
+            </div>
+
+
+
+            <div class="dashboard-stat-card">
+
+                <div class="dashboard-stat-top">
+
+                    <div>
+
+                        <div class="dashboard-stat-label">
+                            Safe Scans
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-stat-icon">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="dashboard-stat-value"
+                    id="safeScans"
+                >
+                    0
+                </div>
+
+                <div class="dashboard-stat-description">
+
+                    Safe content detected
+
+                </div>
+
+            </div>
+
+
+
+            <div class="dashboard-stat-card">
+
+                <div class="dashboard-stat-top">
+
+                    <div>
+
+                        <div class="dashboard-stat-label">
+                            Reports
+                        </div>
+
+                    </div>
+
+                    <div class="dashboard-stat-icon">
+
+                        <i class="fa-solid fa-flag"></i>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="dashboard-stat-value"
+                    id="totalReports"
+                >
+                    0
+                </div>
+
+                <div class="dashboard-stat-description">
+
+                    Scam reports submitted
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             MAIN GRID
+        ========================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- QUICK SCAN -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                    <div>
+
+                        <h2>
+                            Quick Security Scan
+                        </h2>
+
+                        <p>
+                            Analyze suspicious content instantly.
+                        </p>
+
+                    </div>
+
+                    <i
+                        class="fa-solid fa-shield-virus"
+                        style="
+                            color:var(--primary);
+                            font-size:24px;
+                        "
+                    ></i>
+
+                </div>
+
+
+                <div class="quick-scan">
+
+                    <input
+                        type="text"
+                        id="quickScanInput"
+                        class="quick-scan-input"
+                        placeholder="Enter a suspicious URL..."
+                    >
+
+
+                    <div class="quick-scan-actions">
+
+                        <button
+                            type="button"
+                            id="quickScanButton"
+                            class="quick-scan-btn"
+                        >
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            Scan URL
+
+                        </button>
+
+
+                        <a
+                            href="/"
+                            class="view-scanner-btn"
+                        >
+
+                            Open Full Scanner
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SECURITY STATUS -->
+
+            <div class="dashboard-card">
+
+                <div class="dashboard-card-header">
+
+                    <div>
+
+                        <h2>
+                            Security Status
+                        </h2>
+
+                        <p>
+                            System overview
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="security-status">
+
+
+                    <div class="security-item">
+
+                        <div class="security-item-left">
+
+                            <div class="security-item-icon">
+
+                                <i class="fa-solid fa-server"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Backend API
+                                </h4>
+
+                                <p>
+                                    Flask server
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="status-badge active">
+                            Active
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="security-item">
+
+                        <div class="security-item-left">
+
+                            <div class="security-item-icon">
+
+                                <i class="fa-solid fa-database"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Database
+                                </h4>
+
+                                <p>
+                                    MySQL connection
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="status-badge active">
+                            Connected
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="security-item">
+
+                        <div class="security-item-left">
+
+                            <div class="security-item-icon">
+
+                                <i class="fa-solid fa-robot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h4>
+                                    Detection Engine
+                                </h4>
+
+                                <p>
+                                    Scam detection
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="status-badge active">
+                            Ready
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             RECENT ACTIVITY
+        ========================================== -->
+
+        <section class="dashboard-card">
+
+            <div class="dashboard-card-header">
+
+                <div>
+
+                    <h2>
+                        Recent Activity
+                    </h2>
+
+                    <p>
+                        Your latest CyberShield actions
+                    </p>
+
+                </div>
+
+                <i
+                    class="fa-solid fa-clock-rotate-left"
+                    style="
+                        color:var(--primary);
+                        font-size:21px;
+                    "
+                ></i>
+
+            </div>
+
+
+            <div class="activity-list">
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+
+                        <i class="fa-solid fa-user-check"></i>
+
+                    </div>
+
+                    <div class="activity-content">
+
+                        <h4>
+                            Account created
+                        </h4>
+
+                        <p>
+                            Your CyberShield account is active.
+                        </p>
+
+                    </div>
+
+                    <div class="activity-time">
+                        Recently
+                    </div>
+
+                </div>
+
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                    </div>
+
+                    <div class="activity-content">
+
+                        <h4>
+                            Security protection enabled
+                        </h4>
+
+                        <p>
+                            CyberShield protection is ready.
+                        </p>
+
+                    </div>
+
+                    <div class="activity-time">
+                        Active
+                    </div>
+
+                </div>
+
+
+
+                <div class="activity-item">
+
+                    <div class="activity-icon">
+
+                        <i class="fa-solid fa-database"></i>
+
+                    </div>
+
+                    <div class="activity-content">
+
+                        <h4>
+                            Database connected
+                        </h4>
+
+                        <p>
+                            User account data is being stored securely.
+                        </p>
+
+                    </div>
+
+                    <div class="activity-time">
+                        Active
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <div class="dashboard-footer">
+
+            CyberShield • Secure • Detect • Protect
+
+        </div>
+<script src="/assets/js/dashboard.js"></script>
+
+    </main>
+
+</body>
+
+</html>

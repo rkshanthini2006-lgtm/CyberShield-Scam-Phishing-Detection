@@ -1,0 +1,417 @@
+/* ==========================================
+   CYBERSHIELD - ANIMATIONS
+   Clean Interaction Layer
+========================================== */
+
+
+/* ==========================================
+   HERO ENTRANCE
+========================================== */
+
+.hero-left {
+
+    animation:
+        heroSlideLeft
+        0.9s
+        ease-out
+        both;
+
+}
+
+
+.hero-right {
+
+    animation:
+        heroSlideRight
+        0.9s
+        ease-out
+        both;
+
+}
+
+
+/* ==========================================
+   HERO ANIMATIONS
+========================================== */
+
+@keyframes heroSlideLeft {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-45px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+@keyframes heroSlideRight {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(45px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   SHIELD CARD
+   No continuous rotation
+========================================== */
+
+.shield-card {
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+
+}
+
+
+.shield-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    box-shadow:
+        0 30px 75px
+        rgba(0, 0, 0, 0.5),
+
+        0 0 45px
+        rgba(0, 194, 255, 0.16);
+
+}
+
+
+/* ==========================================
+   LOGO SHIELD
+   No 360° animation
+========================================== */
+
+.logo i {
+
+    animation:
+        none;
+
+    transition:
+        transform 0.35s ease,
+        filter 0.35s ease;
+
+}
+
+
+.logo:hover i {
+
+    transform:
+        scale(1.08)
+        rotate(-6deg);
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(0, 194, 255, 0.7)
+        );
+
+}
+
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+.nav-links a {
+
+    position:
+        relative;
+
+}
+
+
+.nav-links a::after {
+
+    transition:
+        width 0.35s ease;
+
+}
+
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+
+    width:
+        100%;
+
+}
+
+
+/* ==========================================
+   BUTTON INTERACTIONS
+========================================== */
+
+.primary-btn,
+.secondary-btn,
+.scan-btn,
+.login-btn {
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease,
+        color 0.3s ease;
+
+}
+
+
+.primary-btn:hover,
+.scan-btn:hover {
+
+    transform:
+        translateY(-4px);
+
+}
+
+
+.secondary-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+}
+
+
+/* ==========================================
+   REMOVE BUTTON PULSE
+   Keeps UI professional
+========================================== */
+
+.primary-btn {
+
+    animation:
+        none;
+
+}
+
+
+/* ==========================================
+   HERO TITLE
+========================================== */
+
+.hero h1 span {
+
+    transition:
+        text-shadow 0.35s ease;
+
+}
+
+
+.hero h1 span:hover {
+
+    text-shadow:
+        0 0 12px
+        rgba(0, 194, 255, 0.65),
+
+        0 0 25px
+        rgba(0, 194, 255, 0.35);
+
+}
+
+
+/* ==========================================
+   FEATURE / CONTENT CARDS
+========================================== */
+
+.feature-card,
+.stat-card,
+.step,
+.testimonial-card,
+.faq-item {
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+
+}
+
+
+.feature-card:hover,
+.stat-card:hover,
+.step:hover,
+.testimonial-card:hover,
+.faq-item:hover {
+
+    transform:
+        translateY(-7px);
+
+    box-shadow:
+        0 18px 40px
+        rgba(0, 194, 255, 0.14);
+
+}
+
+
+/* ==========================================
+   FEATURE CARD GLOW LINE
+========================================== */
+
+.feature-card::before {
+
+    transition:
+        left 0.55s ease;
+
+}
+
+
+/* ==========================================
+   SCANNER
+   No constant floating animation
+========================================== */
+
+.scanner-box {
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+
+}
+
+
+.scanner-box:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 30px 75px
+        rgba(0, 0, 0, 0.35),
+
+        0 0 35px
+        rgba(0, 194, 255, 0.10);
+
+}
+
+
+/* ==========================================
+   SCANNER INPUT
+========================================== */
+
+.scan-type,
+.scanner-box textarea {
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+/* ==========================================
+   CONTACT FORM
+========================================== */
+
+.contact-container input,
+.contact-container textarea {
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+}
+
+
+.contact-container input:focus,
+.contact-container textarea:focus {
+
+    border-color:
+        #00C2FF;
+
+    box-shadow:
+        0 0 15px
+        rgba(0, 194, 255, 0.25);
+
+}
+
+
+/* ==========================================
+   FOOTER LINKS
+========================================== */
+
+.footer-links a {
+
+    transition:
+        color 0.3s ease,
+        letter-spacing 0.3s ease;
+
+}
+
+
+.footer-links a:hover {
+
+    color:
+        #00C2FF;
+
+    letter-spacing:
+        1px;
+
+}
+
+
+/* ==========================================
+   SCAN RESULT ENTRANCE
+========================================== */
+
+.scan-result {
+
+    animation:
+        cyberShieldResultIn
+        0.3s
+        ease-out
+        both;
+
+}
+
+
+/* ==========================================
+   REDUCED MOTION
+========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-left,
+    .hero-right,
+    .shield-card,
+    .scan-result {
+
+        animation:
+            none !important;
+
+    }
+
+}

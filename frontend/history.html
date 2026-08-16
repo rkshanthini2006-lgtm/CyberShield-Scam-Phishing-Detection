@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Scan History | CyberShield</title>
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+    <!-- Animation CSS -->
+    <link
+        rel="stylesheet"
+        href="assets/css/animations.css"
+    >
+
+    <!-- Responsive CSS -->
+    <link
+        rel="stylesheet"
+        href="assets/css/responsive.css"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         NAVIGATION
+    ========================================== -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            CyberShield
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/">Home</a>
+
+            <a href="/dashboard.html">
+                Dashboard
+            </a>
+
+            <a
+                href="/history.html"
+                class="active"
+            >
+                History
+            </a>
+
+            <a href="/reports.html">
+                Reports
+            </a>
+
+        </div>
+
+
+        <div class="nav-buttons">
+
+            <a
+                href="/scan.html"
+                class="scan-btn"
+            >
+                <i class="fa-solid fa-radar"></i>
+                Scan Now
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- ==========================================
+         HISTORY PAGE
+    ========================================== -->
+
+    <main class="history-page">
+
+
+        <!-- PAGE HEADER -->
+
+        <section class="history-header">
+
+            <span class="history-tag">
+
+                <i class="fa-solid fa-clock-rotate-left"></i>
+
+                SCAN ACTIVITY
+
+            </span>
+
+
+            <h1>
+
+                Scan <span>History</span>
+
+            </h1>
+
+
+            <p>
+
+                Review your previous URL, message and email
+                security scans in one place.
+
+            </p>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             HISTORY CONTROLS
+        ========================================== -->
+
+        <section class="history-controls">
+
+
+            <div class="history-search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="text"
+                    id="historySearch"
+                    placeholder="Search scan history..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <select
+                id="historyFilter"
+                class="history-filter"
+            >
+
+                <option value="all">
+                    All Scan Types
+                </option>
+
+                <option value="URL">
+                    URL
+                </option>
+
+                <option value="Message">
+                    Message
+                </option>
+
+                <option value="Email">
+                    Email
+                </option>
+
+            </select>
+
+
+            <select
+                id="riskFilter"
+                class="history-filter"
+            >
+
+                <option value="all">
+                    All Results
+                </option>
+
+                <option value="safe">
+                    Safe
+                </option>
+
+                <option value="suspicious">
+                    Suspicious
+                </option>
+
+                <option value="dangerous">
+                    Dangerous
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                id="refreshHistory"
+                class="history-refresh"
+            >
+
+                <i class="fa-solid fa-rotate"></i>
+
+                Refresh
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             HISTORY SUMMARY
+        ========================================== -->
+
+        <section class="history-summary">
+
+
+            <div class="history-summary-card">
+
+                <div class="history-summary-icon">
+
+                    <i class="fa-solid fa-list-check"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Total Scans</span>
+
+                    <strong id="historyTotal">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="history-summary-card safe-summary">
+
+                <div class="history-summary-icon">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Safe</span>
+
+                    <strong id="historySafe">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="history-summary-card suspicious-summary">
+
+                <div class="history-summary-icon">
+
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Suspicious</span>
+
+                    <strong id="historySuspicious">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="history-summary-card dangerous-summary">
+
+                <div class="history-summary-icon">
+
+                    <i class="fa-solid fa-skull-crossbones"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Dangerous</span>
+
+                    <strong id="historyDangerous">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ==========================================
+             HISTORY TABLE
+        ========================================== -->
+
+        <section class="history-container">
+
+
+            <div class="history-container-header">
+
+                <div>
+
+                    <h2>
+
+                        Recent Scans
+
+                    </h2>
+
+                    <p>
+
+                        Your latest security scan activity
+
+                    </p>
+
+                </div>
+
+
+                <span
+                    id="historyCount"
+                    class="history-count"
+                >
+                    0 records
+                </span>
+
+            </div>
+
+
+
+            <!-- LOADING -->
+
+            <div
+                id="historyLoading"
+                class="history-state"
+            >
+
+                <div class="history-spinner"></div>
+
+                <h3>
+                    Loading scan history...
+                </h3>
+
+                <p>
+                    Please wait while your scan records are retrieved.
+                </p>
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                id="historyError"
+                class="history-state history-error-state"
+                style="display: none;"
+            >
+
+                <div class="history-state-icon">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                </div>
+
+                <h3>
+                    Unable to load history
+                </h3>
+
+                <p id="historyErrorMessage">
+
+                    Something went wrong while loading your scan history.
+
+                </p>
+
+
+                <button
+                    type="button"
+                    id="retryHistory"
+                    class="primary-btn"
+                >
+
+                    <i class="fa-solid fa-rotate-right"></i>
+
+                    Try Again
+
+                </button>
+
+            </div>
+
+
+
+            <!-- EMPTY -->
+
+            <div
+                id="historyEmpty"
+                class="history-state"
+                style="display: none;"
+            >
+
+                <div class="history-state-icon">
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                </div>
+
+                <h3>
+                    No scan history found
+                </h3>
+
+                <p>
+
+                    Your completed scans will appear here.
+
+                </p>
+
+
+                <a
+                    href="/scan.html"
+                    class="primary-btn"
+                >
+
+                    <i class="fa-solid fa-shield-virus"></i>
+
+                    Start a Scan
+
+                </a>
+
+            </div>
+
+
+
+            <!-- TABLE -->
+
+            <div
+                id="historyTableWrapper"
+                class="history-table-wrapper"
+                style="display: none;"
+            >
+
+                <table class="history-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                #
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Input
+                            </th>
+
+                            <th>
+                                Risk Score
+                            </th>
+
+                            <th>
+                                Result
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="historyTableBody">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                CyberShield
+            </h2>
+
+            <p>
+                Detect. Analyze. Protect.
+            </p>
+
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="/history.html">
+                    History
+                </a>
+
+                <a href="/reports.html">
+                    Reports
+                </a>
+
+            </div>
+
+
+            <p class="copyright">
+
+                © 2026 CyberShield. All rights reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- IMPORTANT:
+         Your project uses "js", not "JavaScript".
+    -->
+
+    <script src="assets/js/history.js"></script>
+
+
+</body>
+
+</html>

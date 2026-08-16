@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CyberShield | Report Scam</title>
+
+    <link rel="stylesheet"
+          href="../assets/css/style.css">
+
+    <link rel="stylesheet"
+          href="../assets/css/animations.css">
+
+    <link rel="stylesheet"
+          href="../assets/css/responsive.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>CyberShield</span>
+
+            </div>
+
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="index.html">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="index.html#features">
+                        Features
+                    </a>
+                </li>
+
+                <li>
+                    <a href="index.html#scanner">
+                        Scanner
+                    </a>
+                </li>
+
+                <li>
+                    <a href="dashboard.html">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="report-scam.html"
+                       class="active">
+                        Report Scam
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <div class="nav-buttons">
+
+                <a href="login.html"
+                   class="login-btn">
+                    Login
+                </a>
+
+                <a href="index.html#scanner"
+                   class="scan-btn">
+                    Scan Now
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         REPORT SCAM SECTION
+    ========================== -->
+
+    <section class="contact">
+
+        <h2 class="section-title">
+            Report a Scam
+        </h2>
+
+
+        <p class="section-subtitle">
+
+            Help protect others by reporting suspicious
+            websites, messages, emails, or online scams.
+
+        </p>
+
+
+        <div class="contact-container">
+
+
+            <!-- Scam Type -->
+
+            <select
+                id="scamType"
+                class="scan-type">
+
+                <option value="">
+                    Select Scam Type
+                </option>
+
+                <option value="phishing-url">
+                    Phishing URL
+                </option>
+
+                <option value="scam-message">
+                    Scam Message
+                </option>
+
+                <option value="suspicious-email">
+                    Suspicious Email
+                </option>
+
+                <option value="online-fraud">
+                    Online Fraud
+                </option>
+
+                <option value="other">
+                    Other
+                </option>
+
+            </select>
+
+
+            <!-- Scam URL -->
+
+            <input
+                type="text"
+                id="scamUrl"
+                placeholder="Scam URL (optional)">
+
+
+            <!-- Description -->
+
+            <textarea
+                id="scamDescription"
+                rows="7"
+                placeholder="Describe the scam or suspicious activity..."></textarea>
+
+
+            <!-- Reporter Email -->
+
+            <input
+                type="email"
+                id="reporterEmail"
+                placeholder="Your email address (optional)">
+
+
+            <!-- Submit -->
+
+            <button
+                type="button"
+                id="submitScamReport"
+                class="primary-btn">
+
+                <i class="fa-solid fa-flag"></i>
+
+                Submit Scam Report
+
+            </button>
+
+
+            <!-- Status -->
+
+            <p id="reportStatus"
+               style="display: none;">
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                CyberShield
+            </h2>
+
+            <p>
+                AI Powered Scam & Phishing Detection Platform
+            </p>
+
+
+            <div class="footer-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#features">
+                    Features
+                </a>
+
+                <a href="index.html#scanner">
+                    Scanner
+                </a>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="report-scam.html">
+                    Report Scam
+                </a>
+
+            </div>
+
+
+            <p class="copyright">
+
+                © 2026 CyberShield. All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="../assets/JavaScript/report-scam.js"></script>
+
+</body>
+
+</html>
