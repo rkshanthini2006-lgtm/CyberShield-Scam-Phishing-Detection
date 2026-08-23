@@ -190,6 +190,7 @@ def dashboard_page():
         "dashboard.html"
     )
 
+
 @app.route("/history.html")
 def history_page():
 
@@ -197,6 +198,7 @@ def history_page():
         FRONTEND_DIR,
         "history.html"
     )
+
 
 # =========================
 # ASSETS
@@ -842,6 +844,22 @@ def login():
 )
 def dashboard_stats():
 
+    user_id = request.headers.get(
+        "X-User-ID"
+    )
+
+    if not user_id:
+
+        return jsonify({
+
+            "success":
+                False,
+
+            "error":
+                "User ID is required."
+
+        }), 401
+
     connection = None
     cursor = None
 
@@ -857,7 +875,13 @@ def dashboard_stats():
 
         cursor.execute(
 
-            "SELECT COUNT(*) FROM scan_history"
+            """
+            SELECT COUNT(*)
+            FROM scan_history
+            WHERE user_id = %s
+            """,
+
+            (user_id,)
 
         )
 
@@ -873,8 +897,11 @@ def dashboard_stats():
             """
             SELECT COUNT(*)
             FROM scan_history
-            WHERE risk_score >= 90
-            """
+            WHERE user_id = %s
+            AND risk_score >= 90
+            """,
+
+            (user_id,)
 
         )
 
@@ -890,9 +917,12 @@ def dashboard_stats():
             """
             SELECT COUNT(*)
             FROM scan_history
-            WHERE risk_score >= 60
+            WHERE user_id = %s
+            AND risk_score >= 60
             AND risk_score < 90
-            """
+            """,
+
+            (user_id,)
 
         )
 
@@ -908,8 +938,11 @@ def dashboard_stats():
             """
             SELECT COUNT(*)
             FROM scan_history
-            WHERE risk_score < 60
-            """
+            WHERE user_id = %s
+            AND risk_score < 60
+            """,
+
+            (user_id,)
 
         )
 
@@ -1088,6 +1121,7 @@ def scan_history():
 
         if connection:
             connection.close()
+
 
 # =========================
 # START SERVER
