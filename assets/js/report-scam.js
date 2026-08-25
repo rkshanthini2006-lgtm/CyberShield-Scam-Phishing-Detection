@@ -5,6 +5,12 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    const reporterName =
+        document.getElementById("reporterName");
+
+    const scamMessage =
+        document.getElementById("scamMessage");
+
     const scamType =
         document.getElementById("scamType");
 
@@ -45,6 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const email =
                     reporterEmail.value.trim();
+
+                const name = 
+                    reporterName.value.trim();
+
+                const message =
+                    scamMessage.value.trim();
 
 
                 /* ==========================================
@@ -106,14 +118,19 @@ document.addEventListener("DOMContentLoaded", () => {
                                 body:
                                     JSON.stringify({
 
+                                        name: name,
+
+                                        email: email,
+
                                         scam_type: type,
 
-                                        url: url,
+                                        scam_url: url,
+
+                                        scam_message: message,
 
                                         description:
-                                            description,
+                                            description
 
-                                        email: email
 
                                     })
                             }
@@ -169,6 +186,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     reporterEmail.value = "";
 
+                    reporterName.value = "";
+
+                    scamMessage.value = "";
 
                 }
 

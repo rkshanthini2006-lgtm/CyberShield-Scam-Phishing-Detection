@@ -163,6 +163,14 @@ def home():
         "index.html"
     )
 
+@app.route("/index.html")
+def index_page():
+
+    return send_from_directory(
+        FRONTEND_DIR,
+        "index.html"
+    )
+
 
 @app.route("/register.html")
 def register_page():
@@ -199,6 +207,21 @@ def history_page():
         "history.html"
     )
 
+@app.route("/scan.html")
+def scan_page():
+
+    return send_from_directory(
+        FRONTEND_DIR,
+        "scan.html"
+    )
+
+@app.route("/report-scam.html")
+def report_scam_page():
+
+    return send_from_directory(
+        FRONTEND_DIR,
+        "report-scam.html"
+    )
 
 # =========================
 # ASSETS

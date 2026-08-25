@@ -4,13 +4,16 @@
 ========================================== */
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    loadDashboardStats();
+        loadDashboardStats();
 
-    setupQuickScan();
+        setupQuickScan();
 
-});
+    }
+);
 
 
 /* ==========================================
@@ -22,7 +25,10 @@ async function loadDashboardStats() {
     try {
 
         const userId =
-            localStorage.getItem("user_id");
+            localStorage.getItem(
+                "user_id"
+            );
+
 
         if (!userId) {
 
@@ -34,6 +40,7 @@ async function loadDashboardStats() {
 
         }
 
+
         const response =
             await fetch(
                 "/dashboard-stats",
@@ -41,9 +48,12 @@ async function loadDashboardStats() {
                     method: "GET",
 
                     headers: {
+
                         "X-User-ID":
                             userId
+
                     }
+
                 }
             );
 
@@ -86,10 +96,11 @@ async function loadDashboardStats() {
                 "totalScans"
             );
 
+
         if (totalScans) {
 
             totalScans.textContent =
-                data.total_scans;
+                data.total_scans ?? 0;
 
         }
 
@@ -103,10 +114,11 @@ async function loadDashboardStats() {
                 "threatsDetected"
             );
 
+
         if (threatsDetected) {
 
             threatsDetected.textContent =
-                data.threats_detected;
+                data.threats_detected ?? 0;
 
         }
 
@@ -120,10 +132,11 @@ async function loadDashboardStats() {
                 "safeScans"
             );
 
+
         if (safeScans) {
 
             safeScans.textContent =
-                data.safe_scans;
+                data.safe_scans ?? 0;
 
         }
 
@@ -137,48 +150,16 @@ async function loadDashboardStats() {
                 "totalReports"
             );
 
+
         if (totalReports) {
 
             totalReports.textContent =
-                data.total_reports;
-
-        }
-
-
-        /* ======================================
-           SUSPICIOUS SCANS
-        ====================================== */
-
-        const suspiciousScans =
-            document.getElementById(
-                "suspiciousScans"
-            );
-
-        if (suspiciousScans) {
-
-            suspiciousScans.textContent =
-                data.suspicious_scans;
-
-        }
-
-
-        /* ======================================
-           DANGEROUS SCANS
-        ====================================== */
-
-        const dangerousScans =
-            document.getElementById(
-                "dangerousScans"
-            );
-
-        if (dangerousScans) {
-
-            dangerousScans.textContent =
-                data.dangerous_scans;
+                data.total_reports ?? 0;
 
         }
 
     }
+
 
     catch (error) {
 
@@ -198,10 +179,12 @@ async function loadDashboardStats() {
 
 function setupQuickScan() {
 
+
     const quickScanInput =
         document.getElementById(
             "quickScanInput"
         );
+
 
     const quickScanButton =
         document.getElementById(
@@ -209,7 +192,46 @@ function setupQuickScan() {
         );
 
 
-    if (!quickScanInput || !quickScanButton) {
+    const quickScanResultOverlay =
+        document.getElementById(
+            "quickScanResultOverlay"
+        );
+
+
+    const quickScanResult =
+        document.getElementById(
+            "quickScanResult"
+        );
+
+
+    const closeQuickScanResult =
+        document.getElementById(
+            "closeQuickScanResult"
+        );
+
+
+    const quickResultRisk =
+        document.getElementById(
+            "quickResultRisk"
+        );
+
+
+    const quickResultScore =
+        document.getElementById(
+            "quickResultScore"
+        );
+
+
+    const quickResultReasons =
+        document.getElementById(
+            "quickResultReasons"
+        );
+
+
+    if (
+        !quickScanInput ||
+        !quickScanButton
+    ) {
 
         console.warn(
             "Quick Scan elements not found."
@@ -220,9 +242,373 @@ function setupQuickScan() {
     }
 
 
+    /* ==========================================
+       OPEN RESULT MODAL
+    ========================================== */
+
+    function openQuickScanResult(result) {
+
+
+        if (
+            !quickScanResult ||
+            !quickScanResultOverlay
+        ) {
+
+            return;
+
+        }
+
+
+        /* --------------------------------------
+           RISK
+        -------------------------------------- */
+
+        if (quickResultRisk) {
+
+            quickResultRisk.textContent =
+                result.risk ||
+                "Unknown";
+
+        }
+
+
+        /* --------------------------------------
+           SCORE
+        -------------------------------------- */
+
+        if (quickResultScore) {
+
+            quickResultScore.textContent =
+                `${result.score ?? 0}/100`;
+
+        }
+
+
+        /* --------------------------------------
+           REASONS
+        -------------------------------------- */
+
+        if (quickResultReasons) {
+
+            quickResultReasons.innerHTML =
+                "";
+
+
+            const reasons =
+                Array.isArray(
+                    result.reasons
+                )
+                    ? result.reasons
+                    : (
+                        result.reasons
+                            ? [result.reasons]
+                            : []
+                    );
+
+
+            if (reasons.length > 0) {
+
+                reasons.forEach(
+                    reason => {
+
+                        const li =
+                            document.createElement(
+                                "li"
+                            );
+
+
+                        li.textContent =
+                            reason;
+
+
+                        quickResultReasons.appendChild(
+                            li
+                        );
+
+                    }
+                );
+
+            }
+
+            else {
+
+                const li =
+                    document.createElement(
+                        "li"
+                    );
+
+
+                li.textContent =
+                    "No suspicious indicators found.";
+
+
+                quickResultReasons.appendChild(
+                    li
+                );
+
+            }
+
+        }
+
+
+        /* --------------------------------------
+           REMOVE OLD RISK CLASSES
+        -------------------------------------- */
+
+        quickScanResult.classList.remove(
+            "safe",
+            "suspicious",
+            "dangerous"
+        );
+
+
+        /* --------------------------------------
+           APPLY RISK CLASS
+        -------------------------------------- */
+
+        const risk =
+            String(
+                result.risk || ""
+            ).toLowerCase();
+
+
+        if (risk === "safe") {
+
+            quickScanResult.classList.add(
+                "safe"
+            );
+
+        }
+
+        else if (
+            risk === "suspicious"
+        ) {
+
+            quickScanResult.classList.add(
+                "suspicious"
+            );
+
+        }
+
+        else if (
+            risk === "dangerous"
+        ) {
+
+            quickScanResult.classList.add(
+                "dangerous"
+            );
+
+        }
+
+
+        /* --------------------------------------
+           SHOW RESULT MODAL
+        -------------------------------------- */
+
+        quickScanResultOverlay.style.display =
+            "flex";
+
+
+        /* --------------------------------------
+           PREVENT BACKGROUND SCROLL
+        -------------------------------------- */
+
+        document.body.style.overflow =
+            "hidden";
+
+
+        /* --------------------------------------
+           RESTORE BUTTON
+        -------------------------------------- */
+
+        quickScanButton.disabled =
+            false;
+
+
+        quickScanButton.innerHTML =
+            '<i class="fa-solid fa-magnifying-glass"></i> Scan URL';
+
+    }
+
+
+    /* ==========================================
+       RESET / CLOSE QUICK SCAN RESULT
+    ========================================== */
+
+    function resetQuickScan() {
+
+
+        /* --------------------------------------
+           HIDE RESULT MODAL
+        -------------------------------------- */
+
+        if (quickScanResultOverlay) {
+
+            quickScanResultOverlay.style.display =
+                "none";
+
+        }
+
+
+        /* --------------------------------------
+           RESTORE PAGE SCROLL
+        -------------------------------------- */
+
+        document.body.style.overflow =
+            "";
+
+
+
+        /* --------------------------------------
+           CLEAR INPUT
+        -------------------------------------- */
+
+        quickScanInput.value =
+            "";
+
+
+        /* --------------------------------------
+           CLEAR RISK
+        -------------------------------------- */
+
+        if (quickResultRisk) {
+
+            quickResultRisk.textContent =
+                "-";
+
+        }
+
+
+        /* --------------------------------------
+           CLEAR SCORE
+        -------------------------------------- */
+
+        if (quickResultScore) {
+
+            quickResultScore.textContent =
+                "-";
+
+        }
+
+
+        /* --------------------------------------
+           CLEAR REASONS
+        -------------------------------------- */
+
+        if (quickResultReasons) {
+
+            quickResultReasons.innerHTML =
+                "";
+
+        }
+
+
+        /* --------------------------------------
+           REMOVE RISK CLASSES
+        -------------------------------------- */
+
+        if (quickScanResult) {
+
+            quickScanResult.classList.remove(
+                "safe",
+                "suspicious",
+                "dangerous"
+            );
+
+        }
+
+
+        /* --------------------------------------
+           RESTORE BUTTON
+        -------------------------------------- */
+
+        quickScanButton.disabled =
+            false;
+
+
+        quickScanButton.innerHTML =
+            '<i class="fa-solid fa-magnifying-glass"></i> Scan URL';
+
+    }
+
+
+    /* ==========================================
+       CLOSE BUTTON
+    ========================================== */
+
+    if (closeQuickScanResult) {
+
+        closeQuickScanResult.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+                resetQuickScan();
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       CLICK OUTSIDE MODAL
+    ========================================== */
+
+    if (quickScanResultOverlay) {
+
+        quickScanResultOverlay.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    quickScanResultOverlay
+                ) {
+
+                    resetQuickScan();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       ESCAPE KEY
+    ========================================== */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Escape" &&
+                quickScanResultOverlay &&
+                quickScanResultOverlay.style.display !== "none"
+            ) {
+
+                resetQuickScan();
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       SCAN URL
+    ========================================== */
+
     quickScanButton.addEventListener(
         "click",
         async () => {
+
 
             const url =
                 quickScanInput.value.trim();
@@ -244,11 +630,13 @@ function setupQuickScan() {
 
 
             /* ======================================
-               GET LOGGED-IN USER ID
+               USER CHECK
             ====================================== */
 
             const userId =
-                localStorage.getItem("user_id");
+                localStorage.getItem(
+                    "user_id"
+                );
 
 
             if (!userId) {
@@ -263,14 +651,40 @@ function setupQuickScan() {
 
 
             /* ======================================
-               DISABLE BUTTON
+               CLOSE OLD RESULT BEFORE NEW SCAN
             ====================================== */
 
-            quickScanButton.disabled = true;
+            if (quickScanResultOverlay) {
+
+                quickScanResultOverlay.style.display =
+                    "none";
+
+            }
 
 
-            const originalText =
-                quickScanButton.innerHTML;
+            if (quickScanResult) {
+
+                quickScanResult.classList.remove(
+                    "safe",
+                    "suspicious",
+                    "dangerous"
+                );
+
+            }
+
+
+            /* Restore page scroll */
+
+            document.body.style.overflow =
+                "";
+
+
+            /* ======================================
+               LOADING STATE
+            ====================================== */
+
+            quickScanButton.disabled =
+                true;
 
 
             quickScanButton.innerHTML =
@@ -279,46 +693,59 @@ function setupQuickScan() {
 
             try {
 
+
                 /* ======================================
-                   SEND URL TO FLASK
+                   SEND REQUEST TO SAME ENDPOINT
+                   USED BY scan.html
                 ====================================== */
 
                 const response =
                     await fetch(
                         "/scan",
                         {
-                            method: "POST",
 
-                            headers: {
+                            method:
+                                "POST",
 
-                                "Content-Type":
-                                    "application/json",
+                            headers:
+                                {
 
-                                "X-User-ID":
-                                    userId
+                                    "Content-Type":
+                                        "application/json",
 
-                            },
+                                    "X-User-ID":
+                                        userId
+
+                                },
 
                             body:
-                                JSON.stringify({
-                                    url: url
-                                })
+                                JSON.stringify(
+                                    {
+                                        url:
+                                            url
+                                    }
+                                )
+
                         }
                     );
 
+
+                /* ======================================
+                   READ RESPONSE
+                ====================================== */
 
                 const result =
                     await response.json();
 
 
                 console.log(
-                    "Quick Scan Result:",
+                    "CyberShield Quick Scan Result:",
                     result
                 );
 
 
                 /* ======================================
-                   HANDLE ERROR
+                   HANDLE SERVER ERROR
                 ====================================== */
 
                 if (!response.ok) {
@@ -332,59 +759,22 @@ function setupQuickScan() {
 
 
                 /* ======================================
-                   DISPLAY RESULT
+                   DISPLAY SCANNER-STYLE RESULT
                 ====================================== */
 
-                const risk =
-                    result.risk ||
-                    "Unknown";
-
-                const score =
-                    result.score ?? 0;
-
-
-                let message =
-                    `Risk: ${risk}\nScore: ${score}/100`;
-
-
-                if (
-                    result.reasons &&
-                    result.reasons.length > 0
-                ) {
-
-                    message +=
-                        "\n\nReasons:\n- " +
-                        result.reasons.join(
-                            "\n- "
-                        );
-
-                }
-
-                else {
-
-                    message +=
-                        "\n\nNo suspicious indicators found.";
-
-                }
-
-
-                alert(message);
+                openQuickScanResult(
+                    result
+                );
 
 
                 /* ======================================
-                   REFRESH DASHBOARD STATISTICS
+                   UPDATE DASHBOARD COUNTERS
                 ====================================== */
 
                 loadDashboardStats();
 
-
-                /* ======================================
-                   CLEAR INPUT
-                ====================================== */
-
-                quickScanInput.value = "";
-
             }
+
 
             catch (error) {
 
@@ -399,15 +789,15 @@ function setupQuickScan() {
                     "Unable to complete the scan."
                 );
 
-            }
 
-            finally {
+                /* Restore button */
 
                 quickScanButton.disabled =
                     false;
 
+
                 quickScanButton.innerHTML =
-                    originalText;
+                    '<i class="fa-solid fa-magnifying-glass"></i> Scan URL';
 
             }
 

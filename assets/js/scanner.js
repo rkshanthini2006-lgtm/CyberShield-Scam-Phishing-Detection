@@ -5,20 +5,33 @@
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const scanType = document.getElementById("scanType");
-    const scanInput = document.getElementById("scanInput");
-    const analyzeButton = document.getElementById("analyzeButton");
+    const scanType =
+        document.getElementById("scanType");
 
-    const scanResult = document.getElementById("scanResult");
-    const closeScanResult = document.getElementById("closeScanResult");
+    const scanInput =
+        document.getElementById("scanInput");
 
-    const resultRisk = document.getElementById("resultRisk");
-    const resultScore = document.getElementById("resultScore");
-    const resultReasons = document.getElementById("resultReasons");
+    const analyzeButton =
+        document.getElementById("analyzeButton");
+
+    const scanResult =
+        document.getElementById("scanResult");
+
+    const closeScanResult =
+        document.getElementById("closeScanResult");
+
+    const resultRisk =
+        document.getElementById("resultRisk");
+
+    const resultScore =
+        document.getElementById("resultScore");
+
+    const resultReasons =
+        document.getElementById("resultReasons");
 
 
     /* ==========================================
-       PLACEHOLDER TEXT
+       UPDATE PLACEHOLDER
     ========================================== */
 
     function updatePlaceholder() {
@@ -51,6 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* ==========================================
+       SCAN TYPE CHANGE
+    ========================================== */
+
     if (scanType) {
 
         scanType.addEventListener(
@@ -65,6 +82,94 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ==========================================
+       RESET SCANNER
+    ========================================== */
+
+    function resetScanner() {
+
+        /* Clear input */
+
+        if (scanInput) {
+
+            scanInput.value = "";
+
+        }
+
+
+        /* Reset scan type */
+
+        if (scanType) {
+
+            scanType.value = "url";
+
+        }
+
+
+        /* Restore placeholder */
+
+        updatePlaceholder();
+
+
+        /* Restore Analyze button */
+
+        if (analyzeButton) {
+
+            analyzeButton.disabled = false;
+
+            analyzeButton.textContent =
+                "Analyze Now";
+
+        }
+
+
+        /* Clear result content */
+
+        if (resultRisk) {
+
+            resultRisk.textContent = "-";
+
+        }
+
+
+        if (resultScore) {
+
+            resultScore.textContent = "-";
+
+        }
+
+
+        if (resultReasons) {
+
+            resultReasons.innerHTML = "";
+
+        }
+
+
+        /* Hide result */
+
+        if (scanResult) {
+
+            scanResult.style.display = "none";
+
+            scanResult.classList.remove(
+                "safe",
+                "suspicious",
+                "dangerous"
+            );
+
+        }
+
+
+        /* Remove scanner-result-open state */
+
+        document.body.classList.remove(
+            "scanner-result-open"
+        );
+
+    }
+
+
+    /* ==========================================
        OPEN SCAN RESULT
     ========================================== */
 
@@ -74,48 +179,94 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        resultRisk.textContent =
-            result.risk || "Unknown";
 
-        resultScore.textContent =
-            `${result.score ?? 0}/100`;
+        /* --------------------------------------
+           RISK
+        -------------------------------------- */
+
+        if (resultRisk) {
+
+            resultRisk.textContent =
+                result.risk || "Unknown";
+
+        }
 
 
-        resultReasons.innerHTML = "";
+        /* --------------------------------------
+           SCORE
+        -------------------------------------- */
+
+        if (resultScore) {
+
+            resultScore.textContent =
+                `${result.score ?? 0}/100`;
+
+        }
 
 
-        if (
-            result.reasons &&
-            result.reasons.length > 0
-        ) {
+        /* --------------------------------------
+           REASONS
+        -------------------------------------- */
 
-            result.reasons.forEach(reason => {
+        if (resultReasons) {
+
+            resultReasons.innerHTML = "";
+
+
+            const reasons =
+                Array.isArray(result.reasons)
+                    ? result.reasons
+                    : (
+                        result.reasons
+                            ? [result.reasons]
+                            : []
+                    );
+
+
+            if (reasons.length > 0) {
+
+                reasons.forEach(
+                    reason => {
+
+                        const li =
+                            document.createElement(
+                                "li"
+                            );
+
+                        li.textContent =
+                            reason;
+
+                        resultReasons.appendChild(
+                            li
+                        );
+
+                    }
+                );
+
+            }
+
+            else {
 
                 const li =
-                    document.createElement("li");
+                    document.createElement(
+                        "li"
+                    );
 
-                li.textContent = reason;
+                li.textContent =
+                    "No suspicious indicators found.";
 
-                resultReasons.appendChild(li);
+                resultReasons.appendChild(
+                    li
+                );
 
-            });
-
-        }
-
-        else {
-
-            const li =
-                document.createElement("li");
-
-            li.textContent =
-                "No suspicious indicators found.";
-
-            resultReasons.appendChild(li);
+            }
 
         }
 
 
-        /* Remove previous risk classes */
+        /* --------------------------------------
+           REMOVE OLD RISK CLASSES
+        -------------------------------------- */
 
         scanResult.classList.remove(
             "safe",
@@ -124,64 +275,83 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        /* Add current risk class */
+        /* --------------------------------------
+           APPLY CURRENT RISK CLASS
+        -------------------------------------- */
 
         const risk =
-            String(result.risk || "")
-                .toLowerCase();
+            String(
+                result.risk || ""
+            ).toLowerCase();
 
 
         if (risk === "safe") {
 
-            scanResult.classList.add("safe");
+            scanResult.classList.add(
+                "safe"
+            );
 
         }
 
         else if (risk === "suspicious") {
 
-            scanResult.classList.add("suspicious");
+            scanResult.classList.add(
+                "suspicious"
+            );
 
         }
 
         else if (risk === "dangerous") {
 
-            scanResult.classList.add("dangerous");
+            scanResult.classList.add(
+                "dangerous"
+            );
 
         }
 
 
-        /* Open modal */
+        /* --------------------------------------
+           SHOW RESULT
+        -------------------------------------- */
 
-        scanResult.style.display = "block";
+        scanResult.style.display =
+            "block";
 
         document.body.classList.add(
             "scanner-result-open"
         );
 
+
+        /* --------------------------------------
+           IMPORTANT:
+           BUTTON MUST NOT REMAIN IN LOADING STATE
+        -------------------------------------- */
+
+        if (analyzeButton) {
+
+            analyzeButton.disabled =
+                false;
+
+            analyzeButton.textContent =
+                "Analyze Now";
+
+        }
+
     }
 
 
     /* ==========================================
-       CLOSE SCAN RESULT
+       CLOSE RESULT
     ========================================== */
 
     function closeResult() {
 
-        if (!scanResult) {
-            return;
-        }
+        /*
+         * When the user closes the result,
+         * completely reset the scanner.
+         */
 
-        scanResult.style.display = "none";
-
-        scanResult.classList.remove(
-            "safe",
-            "suspicious",
-            "dangerous"
-        );
-
-        document.body.classList.remove(
-            "scanner-result-open"
-        );
+        resetScanner();
 
     }
 
@@ -197,6 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
             function (event) {
 
                 event.preventDefault();
+
                 event.stopPropagation();
 
                 closeResult();
@@ -240,7 +411,14 @@ document.addEventListener("DOMContentLoaded", () => {
             async () => {
 
                 const input =
-                    scanInput.value.trim();
+                    scanInput
+                        ? scanInput.value.trim()
+                        : "";
+
+
+                /* --------------------------------
+                   EMPTY INPUT
+                -------------------------------- */
 
                 if (!input) {
 
@@ -253,12 +431,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                /* ==========================================
-                   GET LOGGED-IN USER ID
-                ========================================== */
+                /* --------------------------------
+                   LOGIN CHECK
+                -------------------------------- */
 
                 const userId =
-                    localStorage.getItem("user_id");
+                    localStorage.getItem(
+                        "user_id"
+                    );
 
 
                 if (!userId) {
@@ -272,15 +452,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
 
 
-                /* Disable button */
+                /* --------------------------------
+                   DISABLE BUTTON
+                -------------------------------- */
 
-                analyzeButton.disabled = true;
-
-                const originalText =
-                    analyzeButton.textContent;
+                analyzeButton.disabled =
+                    true;
 
                 analyzeButton.textContent =
-                    "Analyze Now";
+                    "Analyzing...";
 
 
                 try {
@@ -290,21 +470,29 @@ document.addEventListener("DOMContentLoaded", () => {
                     let payload = {};
 
 
-                    /* URL */
+                    /* =================================
+                       URL
+                    ================================= */
 
-                    if (scanType.value === "url") {
+                    if (
+                        scanType.value === "url"
+                    ) {
 
                         endpoint =
                             "/scan";
 
                         payload = {
+
                             url: input
+
                         };
 
                     }
 
 
-                    /* MESSAGE */
+                    /* =================================
+                       MESSAGE
+                    ================================= */
 
                     else if (
                         scanType.value === "message"
@@ -314,13 +502,17 @@ document.addEventListener("DOMContentLoaded", () => {
                             "/scan-message";
 
                         payload = {
+
                             message: input
+
                         };
 
                     }
 
 
-                    /* EMAIL */
+                    /* =================================
+                       EMAIL
+                    ================================= */
 
                     else if (
                         scanType.value === "email"
@@ -330,20 +522,36 @@ document.addEventListener("DOMContentLoaded", () => {
                             "/scan-email";
 
                         payload = {
+
                             email: input
+
                         };
 
                     }
 
 
-                    /* ==========================================
-                       SEND SCAN REQUEST
-                    ========================================== */
+                    /* =================================
+                       INVALID SCAN TYPE
+                    ================================= */
+
+                    else {
+
+                        throw new Error(
+                            "Invalid scan type."
+                        );
+
+                    }
+
+
+                    /* =================================
+                       SEND REQUEST
+                    ================================= */
 
                     const response =
                         await fetch(
                             endpoint,
                             {
+
                                 method: "POST",
 
                                 headers: {
@@ -360,13 +568,22 @@ document.addEventListener("DOMContentLoaded", () => {
                                     JSON.stringify(
                                         payload
                                     )
+
                             }
                         );
 
 
+                    /* =================================
+                       READ RESPONSE
+                    ================================= */
+
                     const result =
                         await response.json();
 
+
+                    /* =================================
+                       SERVER ERROR
+                    ================================= */
 
                     if (!response.ok) {
 
@@ -378,9 +595,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
 
-                    openScanResult(result);
+                    /* =================================
+                       DISPLAY RESULT
+                    ================================= */
+
+                    openScanResult(
+                        result
+                    );
 
                 }
+
 
                 catch (error) {
 
@@ -389,6 +613,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         error
                     );
 
+
                     alert(
                         error.message ||
                         "Unable to complete the scan."
@@ -396,13 +621,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
+
                 finally {
+
+                    /*
+                     * Always restore the button.
+                     * This prevents the scanner from
+                     * getting stuck in "Analyzing..."
+                     */
 
                     analyzeButton.disabled =
                         false;
 
                     analyzeButton.textContent =
-                        originalText;
+                        "Analyze Now";
 
                 }
 

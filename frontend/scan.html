@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CyberShield | AI Scanner</title>
+
+    <meta name="description"
+          content="CyberShield AI-powered scanner for phishing URLs, scam messages, and suspicious emails.">
+
+    <!-- Google Font -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          href="../assets/css/style.css">
+
+    <link rel="stylesheet"
+          href="../assets/css/animations.css">
+
+    <link rel="stylesheet"
+          href="../assets/css/responsive.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGATION
+    ========================== -->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>
+                    CyberShield
+                </span>
+
+            </div>
+
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/#features">
+                        Features
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/scan.html"
+                       class="active">
+                        Scanner
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/dashboard.html">
+                        Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/report-scam.html">
+                        Report Scam
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <div class="nav-buttons">
+
+                <a href="/login.html"
+                   class="login-btn">
+
+                    Login
+
+                </a>
+
+
+                <a href="/scan.html"
+                   class="scan-btn">
+
+                    Scan Now
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         SCANNER SECTION
+    ========================== -->
+
+    <section class="scanner-preview">
+
+        <h2 class="section-title">
+
+            AI Scam Scanner
+
+        </h2>
+
+
+        <p class="section-subtitle">
+
+            Analyze suspicious URLs, scam messages,
+            and suspicious emails using CyberShield.
+
+        </p>
+
+
+        <div class="scanner-box">
+
+
+            <!-- Scan Type -->
+
+            <select
+                id="scanType"
+                class="scan-type">
+
+                <option value="url">
+                    Phishing URL
+                </option>
+
+                <option value="message">
+                    Scam Message
+                </option>
+
+                <option value="email">
+                    Suspicious Email
+                </option>
+
+            </select>
+
+
+            <!-- Scan Input -->
+
+            <textarea
+                id="scanInput"
+                rows="8"
+                placeholder="Paste a suspicious URL here..."></textarea>
+
+
+            <!-- Analyze Button -->
+
+            <button
+                id="analyzeButton"
+                class="primary-btn"
+                type="button">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                Analyze Now
+
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             SCAN RESULT
+        ========================== -->
+
+        <div
+            class="scan-result"
+            id="scanResult"
+            style="display: none;">
+
+            <button
+                type="button"
+                class="close-scan-result"
+                id="closeScanResult"
+                aria-label="Close scan result">
+
+                ×
+
+            </button>
+
+
+            <h3>
+                Scan Result
+            </h3>
+
+
+            <p>
+
+                <strong>
+                    Risk:
+                </strong>
+
+                <span id="resultRisk">
+                    -
+                </span>
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Score:
+                </strong>
+
+                <span id="resultScore">
+                    -
+                </span>
+
+            </p>
+
+
+            <div>
+
+                <strong>
+                    Reasons:
+                </strong>
+
+
+                <ul id="resultReasons"></ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                CyberShield
+            </h2>
+
+
+            <p>
+                AI Powered Scam & Phishing Detection Platform
+            </p>
+
+
+            <div class="footer-links">
+
+                <a href="/">
+                    Home
+                </a>
+
+                <a href="/#features">
+                    Features
+                </a>
+
+                <a href="/scan.html">
+                    Scanner
+                </a>
+
+                <a href="/dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="/report-scam.html">
+                    Report Scam
+                </a>
+
+            </div>
+
+
+            <p class="copyright">
+
+                © 2026 CyberShield. All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script src="../assets/js/scanner.js"></script>
+
+</body>
+
+</html>
