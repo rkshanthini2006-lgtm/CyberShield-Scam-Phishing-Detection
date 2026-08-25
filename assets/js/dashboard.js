@@ -21,9 +21,31 @@ async function loadDashboardStats() {
 
     try {
 
-        const response = await fetch(
-            "/dashboard-stats"
-        );
+        const userId =
+            localStorage.getItem("user_id");
+
+        if (!userId) {
+
+            console.error(
+                "CyberShield Dashboard: User ID not found."
+            );
+
+            return;
+
+        }
+
+        const response =
+            await fetch(
+                "/dashboard-stats",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "X-User-ID":
+                            userId
+                    }
+                }
+            );
 
 
         if (!response.ok) {
@@ -35,7 +57,8 @@ async function loadDashboardStats() {
         }
 
 
-        const data = await response.json();
+        const data =
+            await response.json();
 
 
         console.log(
@@ -59,7 +82,9 @@ async function loadDashboardStats() {
         ====================================== */
 
         const totalScans =
-            document.getElementById("totalScans");
+            document.getElementById(
+                "totalScans"
+            );
 
         if (totalScans) {
 
@@ -74,7 +99,9 @@ async function loadDashboardStats() {
         ====================================== */
 
         const threatsDetected =
-            document.getElementById("threatsDetected");
+            document.getElementById(
+                "threatsDetected"
+            );
 
         if (threatsDetected) {
 
@@ -89,7 +116,9 @@ async function loadDashboardStats() {
         ====================================== */
 
         const safeScans =
-            document.getElementById("safeScans");
+            document.getElementById(
+                "safeScans"
+            );
 
         if (safeScans) {
 
@@ -104,7 +133,9 @@ async function loadDashboardStats() {
         ====================================== */
 
         const totalReports =
-            document.getElementById("totalReports");
+            document.getElementById(
+                "totalReports"
+            );
 
         if (totalReports) {
 

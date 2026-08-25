@@ -641,48 +641,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-
-    /* ==========================================
-       SEARCH
-    ========================================== */
-
-    if (historySearch) {
-
-        historySearch.addEventListener(
-            )
-        ) {
-
-            return String(
-                dateValue
-            );
-
-        }
-
-
-        return date.toLocaleString(
-            "en-IN",
-            {
-                day:
-                    "2-digit",
-
-                month:
-                    "short",
-
-                year:
-                    "numeric",
-
-                hour:
-                    "2-digit",
-
-                minute:
-                    "2-digit"
-
-            }
-        );
-
-    }
-
-
     /* ==========================================
        HTML ESCAPE
        Prevents unsafe content in table
