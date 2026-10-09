@@ -553,6 +553,90 @@ def report_scam():
         if connection:
             connection.close()
 
+# =========================
+# CONTACT US
+# =========================
+
+@app.route("/contact", methods=["POST"])
+def contact():
+
+    data = request.get_json(silent=True)
+
+    if not data:
+        return jsonify({
+            "success": False,
+            "error": "Contact form data is required."
+        }), 400
+
+    name = data.get("name", "").strip()
+    email = data.get("email", "").strip()
+    message = data.get("message", "").strip()
+
+    if not name or not email or not message:
+        return jsonify({
+            "success": False,
+            "error": "Please fill in all fields."
+        }), 400
+
+    if len(name) > 100 or len(email) > 255:
+        return jsonify({
+            "success": False,
+            "error": "Name or email exceeds the allowed length."
+        }), 400
+
+    if (
+        "@" not in email
+        or email.startswith("@")
+        or email.endswith("@")
+        or any(character.isspace() for character in email)
+    ):
+        return jsonify({
+            "success": False,
+            "error": "Please enter a valid email address."
+        }), 400
+
+    connection = None
+    cursor = None
+
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor()
+
+        query = """
+            INSERT INTO contact_messages
+                (name, email, message)
+            VALUES (%s, %s, %s)
+        """
+
+        cursor.execute(
+            query,
+            (name, email, message)
+        )
+
+        connection.commit()
+
+        return jsonify({
+            "success": True,
+            "message": "Your message has been submitted successfully."
+        }), 201
+
+    except Exception as error:
+        if connection:
+            connection.rollback()
+
+        app.logger.exception("Contact message database error")
+
+        return jsonify({
+            "success": False,
+            "error": "Unable to save your message. Please try again."
+        }), 500
+
+    finally:
+        if cursor:
+            cursor.close()
+
+        if connection:
+            connection.close()
 
 # =========================
 # USER REGISTRATION
